@@ -62,6 +62,10 @@ describe 'Upload attachment to wiki page', js: true do
     expect(page).to have_content('Image uploaded the first time')
     expect(page).to have_selector('attachment-list-item', text: 'image.png')
 
+    expect(page).to have_text("Successful creation")
+    # required sleep otherwise clicking on the Edit button doesn't do anything
+    sleep 2
+
     within '.toolbar-items' do
       click_on "Edit"
     end
