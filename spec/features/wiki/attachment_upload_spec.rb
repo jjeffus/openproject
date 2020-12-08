@@ -39,7 +39,7 @@ describe 'Upload attachment to wiki page', js: true do
   end
   let(:project) { FactoryBot.create(:project) }
   let(:attachments) { ::Components::Attachments.new }
-  let(:image_fixture) { Rails.root.join('spec/fixtures/files/image.png') }
+  let(:image_fixture) { UploadedFile.load_from('spec/fixtures/files/image.png') }
   let(:editor) { ::Components::WysiwygEditor.new }
   let(:wiki_page_content) { project.wiki.pages.first.content.text }
 
@@ -51,7 +51,7 @@ describe 'Upload attachment to wiki page', js: true do
     visit project_wiki_path(project, 'test')
 
     # adding an image
-    editor.drag_attachment image_fixture, 'Image uploaded the first time'
+    editor.drag_attachment image_fixture.path, 'Image uploaded the first time'
 
     expect(page).to have_selector('attachment-list-item', text: 'image.png')
     expect(page).not_to have_selector('notification-upload-progress')
@@ -70,7 +70,7 @@ describe 'Upload attachment to wiki page', js: true do
     expect(page).to have_selector('.ck-editor__editable')
     editor.set_markdown "\n\nSome text\n![my-first-image](image.png)\n\nText that prevents the two images colliding"
 
-    editor.drag_attachment image_fixture, 'Image uploaded the second time'
+    editor.drag_attachment image_fixture.path, 'Image uploaded the second time'
 
     expect(page).not_to have_selector('notification-upload-progress')
     expect(page).to have_selector('attachment-list-item', text: 'image.png', count: 2)
@@ -108,7 +108,7 @@ describe 'Upload attachment to wiki page', js: true do
 
     # Upload image to dropzone
     expect(page).to have_no_selector('.work-package--attachments--filename')
-    attachments.attach_file_on_input(image_fixture)
+    attachments.attach_file_on_input(image_fixture.path)
     expect(page).not_to have_selector('notification-upload-progress')
     expect(page).to have_selector('.work-package--attachments--filename', text: 'image.png')
 
