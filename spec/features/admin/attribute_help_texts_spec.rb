@@ -34,8 +34,7 @@ describe 'Attribute help texts', js: true do
   let(:instance) { AttributeHelpText.last }
   let(:modal) { Components::AttributeHelpTextModal.new(instance) }
   let(:editor) { Components::WysiwygEditor.new }
-  let(:image_fixture) { Rails.root.join('spec/fixtures/files/image.png') }
-
+  let(:image_fixture) { UploadedFile.load_from('spec/fixtures/files/image.png') }
   let(:relation_columns_allowed) { true }
 
   describe 'Work package help texts' do
@@ -56,7 +55,7 @@ describe 'Attribute help texts', js: true do
         select 'Status', from: 'attribute_help_text_attribute_name'
 
         editor.set_markdown('My attribute help text')
-        editor.drag_attachment image_fixture, 'Image uploaded on creation'
+        editor.drag_attachment image_fixture.path, 'Image uploaded on creation'
 
         expect(page).to have_selector('attachment-list-item', text: 'image.png')
         click_button 'Save'

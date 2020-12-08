@@ -32,7 +32,7 @@ def register_chrome(language, name: :"chrome_#{language}")
     options.add_preference(:download,
                            directory_upgrade: true,
                            prompt_for_download: false,
-                           default_directory: DownloadedFile::PATH.to_s)
+                           default_directory: DownloadList::SHARED_PATH.to_s)
 
     options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
 
@@ -64,7 +64,7 @@ def register_chrome(language, name: :"chrome_#{language}")
       bridge.http.call :post,
                        "/session/#{bridge.session_id}/chromium/send_command",
                        cmd: 'Page.setDownloadBehavior',
-                       params: { behavior: 'allow', downloadPath: DownloadedFile::PATH.to_s }
+                       params: { behavior: 'allow', downloadPath: DownloadList::SHARED_PATH.to_s }
     end
 
     driver

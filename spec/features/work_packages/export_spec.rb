@@ -87,7 +87,7 @@ describe 'work package export', type: :feature do
   end
 
   after do
-    DownloadedFile.clear_downloads
+    DownloadList.clear
   end
 
   context 'CSV export' do

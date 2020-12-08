@@ -20,7 +20,7 @@ def register_firefox(language, name: :"firefox_#{language}")
 
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile['intl.accept_languages'] = language
-    profile['browser.download.dir'] = DownloadedFile::PATH.to_s
+    profile['browser.download.dir'] = DownloadList::SHARED_PATH.to_s
     profile['browser.download.folderList'] = 2
     profile['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv'
 
