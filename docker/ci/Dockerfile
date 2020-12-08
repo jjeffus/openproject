@@ -2,7 +2,7 @@ FROM ruby:2.7.1-buster
 MAINTAINER operations@openproject.com
 
 ENV USER=dev
-RUN useradd -d /home/$USER -m $USER
+RUN useradd -d /home/$USER -m $USER -s /bin/bash
 WORKDIR /home/$USER
 
 RUN wget --quiet -O- https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
@@ -35,20 +35,5 @@ WORKDIR /home/$USER/openproject
 
 ENTRYPOINT [ "/usr/sbin/entrypoint.sh" ]
 
-EXPOSE 3000
-EXPOSE 3001
-EXPOSE 3002
-EXPOSE 3003
-EXPOSE 3004
-EXPOSE 3005
-EXPOSE 3006
-EXPOSE 3007
-EXPOSE 3008
-EXPOSE 3009
-EXPOSE 3010
-EXPOSE 3011
-EXPOSE 3012
-EXPOSE 3013
-EXPOSE 3014
-EXPOSE 3015
-EXPOSE 3016
+EXPOSE 3000-3016
+EXPOSE 4000-4016

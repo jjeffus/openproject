@@ -17,7 +17,7 @@ RSpec.configure do |config|
 
   ip_address = Socket.ip_address_list.find { |ai| ai.ipv4? && !ai.ipv4_loopback? }.ip_address
   hostname = ENV['CAPYBARA_DYNAMIC_HOSTNAME'].present? ? ip_address : ENV.fetch('CAPYBARA_APP_HOSTNAME', 'localhost')
-  Capybara.server_host = '0.0.0.0'
+  Capybara.server_host = ip_address
   Capybara.app_host = "http://#{hostname}"
 end
 

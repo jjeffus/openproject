@@ -16,7 +16,9 @@ def register_chrome(language, name: :"chrome_#{language}")
       options.add_argument('start-maximized')
       # options.add_argument('window-size=1920,1080')
       # Open dev tools for quick access
-      options.add_argument('auto-open-devtools-for-tabs')
+      if ActiveRecord::Type::Boolean.new.cast(ENV['OPENPROJECT_TESTING_AUTO_DEVTOOLS'])
+        options.add_argument('auto-open-devtools-for-tabs')
+      end
     else
       options.add_argument('window-size=1920,1080')
       options.add_argument('headless')
@@ -77,10 +79,15 @@ register_chrome 'en'
 # Register german locale for custom field decimal test
 register_chrome 'de'
 
+Billy.configure do |c|
+  c.proxy_host = Capybara.server_host
+  c.proxy_port = Capybara.server_port + 1000
+end
+
 # Register mocking proxy driver
 register_chrome 'en', name: :chrome_billy do |options, capabilities|
   options.add_argument("proxy-server=#{Billy.proxy.host}:#{Billy.proxy.port}")
-  options.add_argument('proxy-bypass-list=127.0.0.1;localhost')
+  options.add_argument("proxy-bypass-list=127.0.0.1;localhost;#{Capybara.server_host}")
 
   capabilities[:acceptInsecureCerts] = true
 end
@@ -89,4 +96,3 @@ end
 register_chrome 'en', name: :chrome_revit_add_in do |options, capabilities|
   options.add_argument("user-agent='foo bar Revit'")
 end
-
