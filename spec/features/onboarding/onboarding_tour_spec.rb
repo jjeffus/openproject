@@ -47,6 +47,7 @@ describe 'onboarding tour for new users', js: true do
       visit home_path first_time_user: true
       expect(page).to have_text 'Please select your language'
 
+      # FinickyTest.wait_for_frontend_binding
       select 'Deutsch', :from => 'user_language'
       click_button 'Save'
 

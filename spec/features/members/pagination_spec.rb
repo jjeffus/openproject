@@ -66,6 +66,7 @@ feature 'members pagination', type: :feature, js: true do
     members_page.remove_user! 'Peter Pan'
     expect(members_page).to have_user 'Bob Bobbit'
 
+    FinickyTest.wait_for_frontend_binding
     members_page.go_to_page! 2
     expect(members_page).to have_user 'Alice Alison'
   end
@@ -78,6 +79,7 @@ feature 'members pagination', type: :feature, js: true do
     expect(page).to have_text 'Successful update'
     expect(members_page).to have_user 'Bob Bobbit', roles: ['Developer', 'Manager']
 
+    FinickyTest.wait_for_frontend_binding
     members_page.go_to_page! 2
     expect(members_page).to have_user 'Alice Alison'
   end
