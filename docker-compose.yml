@@ -166,6 +166,7 @@ services:
       CAPYBARA_DOWNLOADED_FILE_DIR: /home/seluser/Downloads
       OPENPROJECT_DISABLE_DEV_ASSET_PROXY: 1
       OPENPROJECT_TESTING_NO_HEADLESS: "true"
+      RSPEC_RETRY_RETRY_COUNT: "${CI_RETRY_COUNT:-0}"
       JOBS: "${CI_JOBS:-4}"
     tmpfs:
       - "/tmp"

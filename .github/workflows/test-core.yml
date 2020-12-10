@@ -46,6 +46,8 @@ jobs:
         CI_JOBS: 1
         CI_CACHE_PATH: "/tmp/${{ github.sha }}/"
         LOCAL_DEV_CHECK: 1
+        # see how many failures if not retrying
+        CI_RETRY_COUNT: 0
       run: |
         cp .env.example .env
         docker-compose build ci
