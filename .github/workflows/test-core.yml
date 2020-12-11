@@ -53,7 +53,7 @@ jobs:
       run: |
         cp .env.example .env
         docker-compose build ci
-        docker-compose up chrome --scale=$CI_JOBS
+        docker-compose up -d --scale chrome=$CI_JOBS selenium-hub
         docker-compose run ci setup run-features
     - name: cleanup
       if: ${{ always() }}
