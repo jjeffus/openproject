@@ -67,7 +67,7 @@ module Components
         close_autocompleter
       end
 
-      def add(name, save_changes: true)
+      def add(name, save_changes: true, finicky: false)
         modal_open? or open_modal
 
         select_autocomplete column_autocompleter,
@@ -77,7 +77,13 @@ module Components
         if save_changes
           apply
           within ".work-package-table" do
-            expect(page).to have_link(name)
+            # for some reason these columns (e.g. 'Overall costs') don't have a proper link
+            if finicky
+              FinickyTest.wait_for_frontend_binding
+              expect(page).to have_selector("a", text: /#{name}/i, visible: :all)
+            else
+              expect(page).to have_link(name)
+            end
           end
         end
       end
@@ -122,6 +128,7 @@ module Components
       def apply
         @opened = false
 
+        # FinickyTest.wait_for_frontend_binding
         click_button('Apply')
       end
 

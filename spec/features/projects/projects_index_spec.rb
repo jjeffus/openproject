@@ -695,10 +695,11 @@ describe 'Projects index page',
                                  'on',
                                  ['2011-11-11'])
 
+        FinickyTest.wait_for_frontend_binding
         click_on 'Apply'
 
         expect(page).to have_text(project_created_on_today.name)
-        expect(page).to_not have_text(project_created_on_fixed_date.name)
+        expect(page).to have_no_text(project_created_on_fixed_date.name)
       end
 
       pending "NOT WORKING YET: Date vs. DateTime issue: Selecting same date for from and to value shows projects of that date"

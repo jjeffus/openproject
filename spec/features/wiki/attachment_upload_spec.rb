@@ -58,20 +58,20 @@ describe 'Upload attachment to wiki page', js: true do
 
     click_on 'Save'
 
+    expect(page).to have_text("Successful creation")
     expect(page).to have_selector('#content img', count: 1)
     expect(page).to have_content('Image uploaded the first time')
     expect(page).to have_selector('attachment-list-item', text: 'image.png')
 
-    expect(page).to have_text("Successful creation")
     # required sleep otherwise clicking on the Edit button doesn't do anything
-    sleep 2
+    FinickyTest.wait_for_frontend_binding
 
     within '.toolbar-items' do
       click_on "Edit"
     end
 
     # Replace the image with a named attachment URL (Regression #28381)
-    expect(page).to have_selector('.ck-editor__editable')
+    expect(page).to have_selector('.ck-editor__editable', wait: 5)
     editor.set_markdown "\n\nSome text\n![my-first-image](image.png)\n\nText that prevents the two images colliding"
 
     editor.drag_attachment image_fixture.path, 'Image uploaded the second time'
@@ -93,6 +93,7 @@ describe 'Upload attachment to wiki page', js: true do
 
     click_on 'Save'
 
+    expect(page).to have_text("Successful update")
     expect(page).to have_selector('#content img', count: 2)
     expect(page).to have_content('Image uploaded the second time')
     expect(page).to have_selector('attachment-list-item', text: 'image.png', count: 2)

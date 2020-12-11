@@ -20,6 +20,11 @@ class DownloadList
     self
   end
 
+  def latest_download
+    return nil if @latest.nil?
+    SHARED_PATH.join(@latest)
+  end
+
   def latest_downloaded_content
     return nil if @latest.nil?
     SHARED_PATH.join(@latest).read

@@ -47,7 +47,7 @@ describe 'Attribute help texts', js: true do
 
     context 'with direct uploads (Regression #34285)', with_direct_uploads: true do
       before do
-        allow_any_instance_of(Attachment).to receive(:diskfile).and_return Struct.new(:path).new(image_fixture.to_s)
+        allow_any_instance_of(Attachment).to receive(:diskfile).and_return image_fixture
       end
 
       it 'can upload an image' do
@@ -80,7 +80,7 @@ describe 'Attribute help texts', js: true do
 
         # Add an image
         # adding an image
-        editor.drag_attachment image_fixture, 'Image uploaded on creation'
+        editor.drag_attachment image_fixture.path, 'Image uploaded on creation'
         expect(page).to have_selector('attachment-list-item', text: 'image.png')
         click_button 'Save'
 

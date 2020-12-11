@@ -124,6 +124,7 @@ describe 'Omniauth authentication', type: :feature do
       expect(page).to have_content(I18n.t(:notice_logged_out))
 
       click_on 'here'
+      FinickyTest.wait_for_frontend_binding
 
       fill_in('first_name', with: user.firstname)
       fill_in('last_name', with: user.lastname)
@@ -139,6 +140,7 @@ describe 'Omniauth authentication', type: :feature do
       visit '/'
       click_link("Omniauth Developer", :match => :first)
 
+      FinickyTest.wait_for_frontend_binding
       # login form developer strategy
       fill_in('first_name', with: user.firstname)
       # intentionally do not supply last_name
@@ -179,6 +181,7 @@ describe 'Omniauth authentication', type: :feature do
       visit account_lost_password_path
       click_link("Omniauth Developer", :match => :first)
 
+      FinickyTest.wait_for_frontend_binding
       # login form developer strategy
       fill_in('first_name', with: user.firstname)
       # intentionally do not supply last_name
@@ -211,6 +214,7 @@ describe 'Omniauth authentication', type: :feature do
       it 'shows a note explaining that the account has to be activated' do
         visit login_path
 
+        FinickyTest.wait_for_frontend_binding
         # login form developer strategy
         fill_in 'first_name', with: 'Ifor'
         fill_in 'last_name',  with: 'McAlistar'

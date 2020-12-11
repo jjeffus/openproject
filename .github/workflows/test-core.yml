@@ -32,7 +32,7 @@ jobs:
     name: Features
     if: github.repository == 'opf/openproject'
     runs-on: [self-hosted,public]
-    timeout-minutes: 60
+    timeout-minutes: 200
     steps:
     - uses: actions/checkout@v2
     - name: cache
@@ -46,11 +46,12 @@ jobs:
         CI_JOBS: 1
         CI_CACHE_PATH: "/tmp/${{ github.sha }}/"
         LOCAL_DEV_CHECK: 1
-        # see how many failures if not retrying
-        CI_RETRY_COUNT: 0
+        # set to 0 for no retry at all. Useful to see how many flickering tests
+        CI_RETRY_COUNT: 1
       run: |
         cp .env.example .env
         docker-compose build ci
+        docker-compose scale chrome=$CI_JOBS
         docker-compose run ci setup run-features
     - name: cleanup
       if: ${{ always() }}

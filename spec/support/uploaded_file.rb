@@ -1,8 +1,16 @@
 class UploadedFile
-  attr_reader :path
+  attr_reader :pathname
 
-  def initialize(path)
-    @path = path
+  def initialize(pathname)
+    @pathname = pathname
+  end
+
+  def path
+    pathname.to_s
+  end
+
+  def to_s
+    path
   end
 
   def basename

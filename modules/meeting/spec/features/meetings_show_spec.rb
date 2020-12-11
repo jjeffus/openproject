@@ -72,6 +72,7 @@ describe 'Meetings', type: :feature, js: true do
         agenda_update
 
         visit meeting_path(meeting)
+
         click_on 'History'
 
         find('#version-1').click

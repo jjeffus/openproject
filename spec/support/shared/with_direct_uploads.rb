@@ -67,11 +67,13 @@ class WithDirectUploads
 
     csp_config = SecureHeaders::Configuration.instance_variable_get("@default_config").csp
     csp_config.connect_src = ["'self'", "test-bucket.s3.amazonaws.com"]
+    csp_config.form_action = ["'self'", "test-bucket.s3.amazonaws.com"]
 
     begin
       example.run
     ensure
       csp_config.connect_src = %w('self')
+      csp_config.form_action = %w('self')
     end
   end
 
