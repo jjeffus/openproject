@@ -5,7 +5,9 @@ on:
 jobs:
   units:
     name: Units
-    if: github.repository == 'opf/openproject'
+    # if: github.repository == 'opf/openproject'
+    # skip for now, as they're green
+    if: github.repository == 'skip'
     runs-on: [self-hosted,public]
     timeout-minutes: 30
     steps:
@@ -28,7 +30,7 @@ jobs:
       if: ${{ always() }}
       run: docker-compose down --remove-orphans -t 10
   features:
-    needs: units
+    # needs: units
     name: Features
     if: github.repository == 'opf/openproject'
     runs-on: [self-hosted,public]
@@ -51,7 +53,7 @@ jobs:
       run: |
         cp .env.example .env
         docker-compose build ci
-        docker-compose scale chrome=$CI_JOBS
+        docker-compose up chrome --scale=$CI_JOBS
         docker-compose run ci setup run-features
     - name: cleanup
       if: ${{ always() }}
