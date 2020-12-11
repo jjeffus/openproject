@@ -25,6 +25,13 @@ if [ "$1" == "setup" ]; then
 	shift
 
 	su $USER -c "time bundle install -j$JOBS"
+	for i in $(seq 0 $JOBS); do
+		folder="$CAPYBARA_DOWNLOADED_FILE_DIR/$i"
+		echo "Creating folder $folder..."
+		rm -rf "$folder"
+		mkdir -p "$folder"
+		chmod 1777 "$folder"
+	done
 	su $USER -c "TEST_ENV_NUMBER=0 time bash ./script/ci/cache_prepare.sh"
 	su $USER -c "time bundle exec rake parallel:setup"
 fi
