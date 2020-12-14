@@ -9,6 +9,8 @@ class DownloadList
   def refresh_from(page)
     @latest = nil
     page.visit("about:downloads")
+    # give some time for page to load
+    sleep 0.5
     download_name = page.evaluate_script("document.querySelector('downloads-manager').shadowRoot.querySelector('#downloadsList downloads-item').shadowRoot.querySelector('div#content #file-link')").text()
     if download_name && !@history.include?(download_name)
       Timeout.timeout(Capybara.default_max_wait_time) do
