@@ -114,46 +114,33 @@ describe 'custom fields', js: true do
       expect(page).to have_text("Platform")
 
       expect(page).to have_selector('.custom-option-row', count: 4)
-      rows = all(".custom-option-value input")
+      expect(page).to have_field("custom_field_custom_options_attributes_0_value", with: "Playstation")
+      expect(page).to have_field("custom_field_custom_options_attributes_1_value", with: "Xbox")
+      expect(page).to have_field("custom_field_custom_options_attributes_2_value", with: "Nintendo")
+      expect(page).to have_field("custom_field_custom_options_attributes_3_value", with: "PC")
 
-      expect(rows[0].value).to eql("Playstation")
-      expect(rows[1].value).to eql("Xbox")
-      expect(rows[2].value).to eql("Nintendo")
-      expect(rows[3].value).to eql("PC")
-
-      rows[1].set "Sega"
-
-      find("#custom_field_multi_value").set true
-
-      defaults = all(".custom-option-default-value input")
-
-      defaults[0].set true
-      defaults[2].set true
-
+      fill_in("custom_field_custom_options_attributes_1_value", with: "Sega")
+      check("custom_field_multi_value")
+      check("custom_field_custom_options_attributes_0_default_value")
+      check("custom_field_custom_options_attributes_2_default_value")
       within all(".custom-option-row").first do
         click_on "Move to bottom"
       end
-
       click_on "Save"
 
       expect(page).to have_text("Successful update")
       expect(page).to have_text("Platform")
+      expect(page).to have_field("custom_field_multi_value", checked: true)
 
-      expect(find("#custom_field_multi_value")).to be_checked
+      expect(page).to have_field("custom_field_custom_options_attributes_0_value", with: "Sega")
+      expect(page).to have_field("custom_field_custom_options_attributes_1_value", with: "Nintendo")
+      expect(page).to have_field("custom_field_custom_options_attributes_2_value", with: "PC")
+      expect(page).to have_field("custom_field_custom_options_attributes_3_value", with: "Playstation")
 
-      new_rows = all(".custom-option-value input")
-
-      expect(new_rows[0].value).to eql("Sega")
-      expect(new_rows[1].value).to eql("Nintendo")
-      expect(new_rows[2].value).to eql("PC")
-      expect(new_rows[3].value).to eql("Playstation")
-
-      new_defaults = all(".custom-option-default-value input")
-
-      expect(new_defaults[0]).not_to be_checked
-      expect(new_defaults[1]).to be_checked
-      expect(new_defaults[2]).not_to be_checked
-      expect(new_defaults[3]).to be_checked
+      expect(page).to have_field("custom_field_custom_options_attributes_0_default_value", checked: false)
+      expect(page).to have_field("custom_field_custom_options_attributes_1_default_value", checked: true)
+      expect(page).to have_field("custom_field_custom_options_attributes_2_default_value", checked: false)
+      expect(page).to have_field("custom_field_custom_options_attributes_3_default_value", checked: true)
     end
 
     context "with work packages using the options" do
