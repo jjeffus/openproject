@@ -24,6 +24,7 @@ describe 'Manage webhooks through UI', type: :feature, js: true do
 
       # Visit inline create
       find('.wp-inline-create--add-link').click
+      FinickyTest.wait_for_frontend_binding
 
       # Fill in elements
       fill_in 'webhook_name', with: 'My webhook'
@@ -50,9 +51,11 @@ describe 'Manage webhooks through UI', type: :feature, js: true do
       expect(page).to have_selector('.webhooks--outgoing-webhook-row .events', text: 'Work packages')
       expect(page).to have_selector('.webhooks--outgoing-webhook-row .description', text: webhook.description)
 
+      FinickyTest.wait_for_frontend_binding
       # Edit this webhook
       find(".webhooks--outgoing-webhook-row-#{webhook.id} .icon-edit").click
 
+      FinickyTest.wait_for_frontend_binding
       # Check the other event
       find('.form--check-box[value="work_package:created"]').set false
       find('.form--check-box[value="work_package:updated"]').set true
@@ -69,6 +72,7 @@ describe 'Manage webhooks through UI', type: :feature, js: true do
       expect(webhook.projects.all).to eq [project]
       expect(webhook.all_projects).to be_falsey
 
+      FinickyTest.wait_for_frontend_binding
       # Delete webhook
       find(".webhooks--outgoing-webhook-row-#{webhook.id} .icon-delete").click
       page.driver.browser.switch_to.alert.accept

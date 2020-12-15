@@ -83,8 +83,10 @@ describe 'Wysiwyg code block macro',
           expect(page).to have_selector('pre.highlight-ruby', count: 2)
         end
 
+        FinickyTest.wait_for_frontend_binding
         # Edit page again, expect widget
         click_on 'Edit'
+        # FinickyTest.wait_for_frontend_binding
 
         editor.in_editor do |container,|
           expect(container).to have_selector('.op-uc-code-block', text: snippet, count: 2)

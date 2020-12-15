@@ -71,6 +71,8 @@ describe 'Omniauth authentication', type: :feature do
     it 'should redirect to back url' do
       visit account_lost_password_path
       click_link("Omniauth Developer", match: :first, visible: :all)
+
+      FinickyTest.wait_for_frontend_binding
       fill_in('first_name', with: user.firstname)
       fill_in('last_name', with: user.lastname)
       fill_in('email', with: user.mail)
@@ -81,6 +83,8 @@ describe 'Omniauth authentication', type: :feature do
 
     it 'should sign in user' do
       visit '/auth/developer'
+
+      FinickyTest.wait_for_frontend_binding
       fill_in('first_name', with: user.firstname)
       fill_in('last_name', with: user.lastname)
       fill_in('email', with: user.mail)
@@ -97,6 +101,7 @@ describe 'Omniauth authentication', type: :feature do
         visit my_account_path
         # requires login, redirects to developer login which is why we see the login form now
 
+        FinickyTest.wait_for_frontend_binding
         fill_in('first_name', with: user.firstname)
         fill_in('last_name', with: user.lastname)
         fill_in('email', with: user.mail)
@@ -124,8 +129,8 @@ describe 'Omniauth authentication', type: :feature do
       expect(page).to have_content(I18n.t(:notice_logged_out))
 
       click_on 'here'
-      FinickyTest.wait_for_frontend_binding
 
+      FinickyTest.wait_for_frontend_binding
       fill_in('first_name', with: user.firstname)
       fill_in('last_name', with: user.lastname)
       fill_in('email', with: user.mail)
@@ -150,6 +155,7 @@ describe 'Omniauth authentication', type: :feature do
       expect(page).to have_content "Last name can't be blank"
       # on register form, we are prompted for a last name
       within('#content') do
+        FinickyTest.wait_for_frontend_binding
         fill_in('user_lastname', with: user.lastname)
         click_link_or_button 'Create'
       end
@@ -190,6 +196,7 @@ describe 'Omniauth authentication', type: :feature do
 
       # on register form, we are prompted for a last name
       within('#content') do
+        FinickyTest.wait_for_frontend_binding
         fill_in('user_lastname', with: user.lastname)
         click_link_or_button 'Create'
       end

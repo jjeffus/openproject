@@ -111,6 +111,7 @@ describe 'Attribute help texts', js: true do
 
         # Handle errors
         expect(page).to have_selector('#errorExplanation', text: "Help text can't be blank.")
+        FinickyTest.wait_for_frontend_binding
         editor.set_markdown('New**help**text')
         click_button 'Save'
 

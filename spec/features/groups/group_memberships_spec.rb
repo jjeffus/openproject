@@ -53,6 +53,7 @@ feature 'group memberships through groups page', type: :feature, js: true do
     expect(members_page).not_to have_user 'Hannibal Smith'
 
     group_page.visit!
+
     group_page.add_to_project! 'Project 1', as: 'Manager'
     expect(page).to have_text 'Successful update'
 

@@ -79,11 +79,13 @@ describe 'wiki pages', type: :feature, js: true do
     expect(page).to have_selector('.wiki-content', text: content_first_version)
 
     within '.toolbar-items' do
+      FinickyTest.wait_for_frontend_binding
       click_on "Edit"
     end
 
     find('.ck-content').set(content_second_version)
 
+    FinickyTest.wait_for_frontend_binding
     click_button 'Save'
     expect(page).to have_selector('.wiki-content', text: content_second_version)
 
@@ -99,6 +101,7 @@ describe 'wiki pages', type: :feature, js: true do
       expect(page).to have_selector('del.diffmod', text: 'first')
     end
 
+    FinickyTest.wait_for_frontend_binding
     # Go back to history
     find('.button', text: 'History').click
 
@@ -109,6 +112,7 @@ describe 'wiki pages', type: :feature, js: true do
     expect(page).to have_selector('.wiki-version--details', text: 'Version 1/2')
     expect(page).to have_selector('.wiki-content', text: content_first_version)
 
+    FinickyTest.wait_for_frontend_binding
     find('.button', text: 'Next').click
 
     expect(page).to have_selector('.wiki-version--details', text: 'Version 2/2')

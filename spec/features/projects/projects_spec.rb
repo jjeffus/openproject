@@ -152,7 +152,9 @@ describe 'Projects', type: :feature do
     it 'updates the project identifier' do
       visit projects_path
       click_on project.name
+      FinickyTest.wait_for_frontend_binding
       click_on 'Project settings'
+      FinickyTest.wait_for_frontend_binding
       click_on 'Edit'
 
       expect(page).to have_content "CHANGE THE PROJECT'S IDENTIFIER"
