@@ -113,6 +113,7 @@ describe 'Wysiwyg code block macro',
           wp = WikiPage.last
           expect(wp.content.text.gsub("\r\n", "\n")).to eq("```text\nasdf\n```")
 
+          FinickyTest.wait_for_frontend_binding
           click_on 'Edit'
 
           editor.in_editor do |container,|

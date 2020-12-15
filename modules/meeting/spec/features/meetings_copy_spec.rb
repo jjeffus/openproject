@@ -73,6 +73,7 @@ describe 'Meetings copy', type: :feature, js: true do
       expect(page)
         .to have_link 'Copy'
 
+      FinickyTest.wait_for_frontend_binding
       click_link 'Copy'
     end
 

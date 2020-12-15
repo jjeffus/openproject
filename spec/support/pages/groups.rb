@@ -119,6 +119,7 @@ module Pages
 
     def add_user!(user_name)
       open_users_tab!
+      FinickyTest.wait_for_frontend_binding
 
       container = page.find('.new-group-members--autocomplete')
       select_autocomplete container,
