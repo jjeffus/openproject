@@ -10,6 +10,7 @@ end
 
 def two_factor_step(token)
   expect(page).to have_selector('input#otp')
+  FinickyTest.wait_for_frontend_binding
   fill_in 'otp', with: token
   click_button I18n.t(:button_login)
 end
@@ -39,6 +40,7 @@ shared_examples 'create enforced sms device' do
     FinickyTest.wait_for_frontend_binding
     # Create SMS device
     find('.mobile-otp-new-device-sms .button--tiny').click
+    FinickyTest.wait_for_frontend_binding
     fill_in 'device_phone_number', with: 'invalid'
     click_on 'Continue'
 

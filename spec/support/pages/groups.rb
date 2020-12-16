@@ -46,6 +46,7 @@ module Pages
       end
 
       edit_group! group_name
+      FinickyTest.wait_for_frontend_binding
       group(group_name).add_user! user_name
     end
 

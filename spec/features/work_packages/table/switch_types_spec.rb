@@ -66,6 +66,7 @@ describe 'Switching types in work package table', js: true do
       expect(text_field).to be_editable
 
       # Set non-required CF
+      FinickyTest.wait_for_frontend_binding
       text_field.activate!
       text_field.set_value 'Foobar'
       text_field.save!
@@ -80,6 +81,7 @@ describe 'Switching types in work package table', js: true do
       )
 
       # Switch type
+      FinickyTest.wait_for_frontend_binding
       type_field.activate!
       type_field.set_value type_bug.name
 
@@ -95,6 +97,7 @@ describe 'Switching types in work package table', js: true do
       )
 
       # Required CF requires activation
+      FinickyTest.wait_for_frontend_binding
       req_text_field.activate!
       req_text_field.set_value 'Required'
       req_text_field.save!
@@ -110,6 +113,7 @@ describe 'Switching types in work package table', js: true do
 
       expect { text_field.display_element }.to raise_error(Capybara::ElementNotFound)
 
+      FinickyTest.wait_for_frontend_binding
       type_field.activate!
       type_field.set_value type_task.name
 
@@ -146,6 +150,7 @@ describe 'Switching types in work package table', js: true do
       req_text_field.expect_active!
 
       # Now switch back to a type without the required CF
+      FinickyTest.wait_for_frontend_binding
       type_field.activate!
       type_field.openSelectField
       type_field.set_value type_task.name
@@ -188,6 +193,7 @@ describe 'Switching types in work package table', js: true do
         req_text_field.expect_active!
 
         # Cancel edition now
+        FinickyTest.wait_for_frontend_binding
         req_text_field.cancel_by_escape
         req_text_field.expect_state_text '-'
 
@@ -311,6 +317,7 @@ describe 'Switching types in work package table', js: true do
 
       visit new_project_work_packages_path(project.identifier, type: type.id)
       expect_angular_frontend_initialized
+      FinickyTest.wait_for_frontend_binding
     end
 
     it 'can switch to the type with CF list' do

@@ -76,13 +76,16 @@ describe 'custom fields', js: true do
 
       cf_page.visit!
       expect_angular_frontend_initialized
+      FinickyTest.wait_for_frontend_binding
 
       click_on custom_field.name
       expect_angular_frontend_initialized
+      FinickyTest.wait_for_frontend_binding
     end
 
     it "adds new options" do
       click_on "add-custom-option"
+      FinickyTest.wait_for_frontend_binding
 
       expect(page).to have_selector('.custom-option-row', count: 5)
       within all(".custom-option-row").last do
@@ -90,6 +93,7 @@ describe 'custom fields', js: true do
       end
 
       click_on "add-custom-option"
+      FinickyTest.wait_for_frontend_binding
 
       expect(page).to have_selector('.custom-option-row', count: 6)
       within all(".custom-option-row").last do
