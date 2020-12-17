@@ -134,6 +134,7 @@ feature 'group memberships through groups page', type: :feature, js: true do
       members_page.expect_sorted_by 'first name'
       expect(members_page.contents('firstname')).to eq ['', hannibal.firstname, peter.firstname]
 
+      FinickyTest.wait_for_frontend_binding
       members_page.sort_by 'email'
       members_page.expect_sorted_by 'email'
       expect(members_page.contents('email')).to eq ['', hannibal.mail, peter.mail]

@@ -65,6 +65,7 @@ describe 'Meetings close', type: :feature do
       # Close the meeting
       FinickyTest.wait_for_frontend_binding
       find('.tabrow a', text: 'AGENDA').click
+      FinickyTest.wait_for_frontend_binding
       find('.button', text: 'Close').click
       page.accept_confirm
 
@@ -75,7 +76,9 @@ describe 'Meetings close', type: :feature do
       expect(page).to have_selector('#meeting_minutes-text', text: 'asdf')
 
       # Go back to agenda, expect we can open it again
+      FinickyTest.wait_for_frontend_binding
       find('.tabrow a', text: 'AGENDA').click
+      FinickyTest.wait_for_frontend_binding
       find('.button', text: 'Open').click
       page.accept_confirm
       expect(page).to have_selector('.button', text: 'Close')
