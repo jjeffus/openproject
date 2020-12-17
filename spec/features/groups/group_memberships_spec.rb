@@ -54,9 +54,11 @@ feature 'group memberships through groups page', type: :feature, js: true do
 
     group_page.visit!
 
+    FinickyTest.wait_for_frontend_binding
     group_page.add_to_project! 'Project 1', as: 'Manager'
     expect(page).to have_text 'Successful update'
 
+    FinickyTest.wait_for_frontend_binding
     group_page.add_user! 'Hannibal'
 
     members_page.visit!
@@ -76,6 +78,7 @@ feature 'group memberships through groups page', type: :feature, js: true do
       expect(members_page).to have_user 'Hannibal Smith'
 
       group_page.visit!
+      FinickyTest.wait_for_frontend_binding
       group_page.remove_user! 'Hannibal Smith'
 
       members_page.visit!
