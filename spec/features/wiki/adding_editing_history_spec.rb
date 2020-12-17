@@ -90,10 +90,12 @@ describe 'wiki pages', type: :feature, js: true do
     expect(page).to have_selector('.wiki-content', text: content_second_version)
 
     within '.toolbar-items' do
+      FinickyTest.wait_for_frontend_binding
       click_on 'More'
       click_on 'History'
     end
 
+    FinickyTest.wait_for_frontend_binding
     click_on 'View differences'
 
     within '.text-diff' do
@@ -107,6 +109,7 @@ describe 'wiki pages', type: :feature, js: true do
 
     # Click on first version
     # to determine text (Regression test #31531)
+    FinickyTest.wait_for_frontend_binding
     find('td.id a', text: 1).click
 
     expect(page).to have_selector('.wiki-version--details', text: 'Version 1/2')

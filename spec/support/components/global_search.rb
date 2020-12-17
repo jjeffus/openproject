@@ -90,6 +90,7 @@ module Components
 
     def find_option(text)
       expect(page).to have_selector('.global-search--wp-subject', text: text, wait: 10)
+      find('.global-search--wp-subject', text: text)
     end
 
     def cancel

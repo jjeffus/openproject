@@ -76,7 +76,9 @@ describe 'Projects', type: :feature do
 
     it 'can create a subproject' do
       click_on 'Foo project'
+      FinickyTest.wait_for_frontend_binding
       click_on 'Project settings'
+      FinickyTest.wait_for_frontend_binding
       click_on 'New subproject'
 
       fill_in 'project[name]', with: 'Foo child'

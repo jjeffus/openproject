@@ -57,11 +57,13 @@ describe 'Meetings close', type: :feature do
       click_link meeting.title
 
       # Go to minutes, expect uneditable
+      FinickyTest.wait_for_frontend_binding
       find('.tabrow a', text: 'MINUTES').click
 
       expect(page).to have_selector('.button', text: 'Close the agenda to begin the Minutes')
 
       # Close the meeting
+      FinickyTest.wait_for_frontend_binding
       find('.tabrow a', text: 'AGENDA').click
       find('.button', text: 'Close').click
       page.accept_confirm
