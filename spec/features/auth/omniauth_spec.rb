@@ -265,6 +265,11 @@ describe 'Omniauth authentication', type: :feature do
         # to a symbol will force omniauth to fail /auth/failure
         OmniAuth.config.test_mode = true
         OmniAuth.config.mock_auth[:developer] = :invalid_credentials
+        # seems like this default behaviour is removed when running the full
+        # test suite, so let's set it back when running this test
+        OmniAuth.config.on_failure = Proc.new { |env|
+          OmniAuth::FailureEndpoint.new(env).redirect_to_failure
+        }
         visit login_path
         expect(page).to have_content(I18n.t(:error_external_authentication_failed))
 

@@ -167,6 +167,7 @@ describe 'Wysiwyg code block macro',
         end
 
         # Edit page again, expect widget
+        FinickyTest.wait_for_frontend_binding
         click_on 'Edit'
 
         editor.in_editor do |container,|

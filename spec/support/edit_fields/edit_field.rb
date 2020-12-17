@@ -67,6 +67,7 @@ class EditField
       unless active?
         FinickyTest.wait_for_frontend_binding
         scroll_to_and_click(display_element)
+        FinickyTest.wait_for_frontend_binding
       end
 
       if expect_open && !active?

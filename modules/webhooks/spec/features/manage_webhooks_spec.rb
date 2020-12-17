@@ -87,6 +87,7 @@ describe 'Manage webhooks through UI', type: :feature, js: true do
 
       it 'shows the delivery' do
         visit admin_outgoing_webhooks_path
+        FinickyTest.wait_for_frontend_binding
         find('.webhooks--outgoing-webhook-row .name a', text: 'testing').click
 
         expect(page).to have_selector('.on-off-status.-enabled')
@@ -94,6 +95,7 @@ describe 'Manage webhooks through UI', type: :feature, js: true do
         expect(page).to have_selector('td.response_code', text: '200')
 
         # Open modal
+        FinickyTest.wait_for_frontend_binding
         find('td.response_body a', text: 'Show').click
 
         page.within('.webhooks--response-body-modal') do

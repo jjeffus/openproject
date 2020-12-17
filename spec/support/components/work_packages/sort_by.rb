@@ -36,6 +36,7 @@ module Components
         text = descending ? 'Sort descending' : 'Sort ascending'
 
         open_table_column_context_menu(name, selector)
+        FinickyTest.wait_for_frontend_binding
 
         within_column_context_menu do
           click_link text
@@ -44,6 +45,7 @@ module Components
 
       def update_criteria(first, second=nil, third=nil)
         open_modal
+        FinickyTest.wait_for_frontend_binding
 
         [first, second, third]
           .compact
@@ -58,6 +60,7 @@ module Components
 
       def expect_criteria(first, second=nil, third=nil)
         open_modal
+        FinickyTest.wait_for_frontend_binding
 
         [first, second, third]
           .compact

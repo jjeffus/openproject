@@ -1,5 +1,9 @@
 class DownloadList
-  SHARED_PATH = Pathname.new(ENV.fetch("CAPYBARA_DOWNLOADED_FILE_DIR", Rails.root.join('tmp/test/downloads'))).join(ENV.fetch('TEST_ENV_NUMBER', '1')).tap {|f| f.mkpath }
+  SHARED_PATH = Pathname.new(
+    ENV.fetch("CAPYBARA_DOWNLOADED_FILE_DIR", Rails.root.join('tmp/test/downloads'))
+  ).join(
+    ENV.fetch('TEST_ENV_NUMBER', '1')
+  ).tap {|f| p ["DownloadList::SHARED_PATH", f.to_s] ; f.mkpath }
 
   def initialize
     @history = []
@@ -33,6 +37,7 @@ class DownloadList
   end
 
   def self.clear
+    return if ENV["CI"]
     Dir[SHARED_PATH.join("*")].each do |file|
       FileUtils.rm_f(file)
     end
