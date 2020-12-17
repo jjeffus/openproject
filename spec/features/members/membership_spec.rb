@@ -118,15 +118,18 @@ feature 'group memberships through groups page', type: :feature, js: true do
     scenario 'sorting the page' do
       members_page.visit!
 
+      FinickyTest.wait_for_frontend_binding
       members_page.sort_by 'last name'
       members_page.expect_sorted_by 'last name'
 
       expect(members_page.contents('lastname')).to eq ['', peter.lastname, hannibal.lastname]
 
+      FinickyTest.wait_for_frontend_binding
       members_page.sort_by 'last name'
       members_page.expect_sorted_by 'last name', desc: true
       expect(members_page.contents('lastname')).to eq [hannibal.lastname, peter.lastname, '']
 
+      FinickyTest.wait_for_frontend_binding
       members_page.sort_by 'first name'
       members_page.expect_sorted_by 'first name'
       expect(members_page.contents('firstname')).to eq ['', hannibal.firstname, peter.firstname]
