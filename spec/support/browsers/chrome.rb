@@ -81,7 +81,9 @@ register_chrome 'de'
 
 Billy.configure do |c|
   c.proxy_host = Capybara.server_host
-  c.proxy_port = Capybara.server_port + 1000
+  if Capybara.server_port
+    c.proxy_port = Capybara.server_port + 1000
+  end
 end
 
 # Register mocking proxy driver

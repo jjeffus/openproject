@@ -35,6 +35,7 @@ module Components
       def sort_via_header(name, selector: nil, descending: false)
         text = descending ? 'Sort descending' : 'Sort ascending'
 
+        FinickyTest.wait_for_frontend_binding
         open_table_column_context_menu(name, selector)
         FinickyTest.wait_for_frontend_binding
 
