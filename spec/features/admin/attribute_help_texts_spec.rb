@@ -106,6 +106,7 @@ describe 'Attribute help texts', js: true do
         # -> edit
         FinickyTest.wait_for_frontend_binding
         page.find('.attribute-help-text--entry td a', text: 'Status').click
+        FinickyTest.wait_for_frontend_binding
         expect(page).to have_selector('#attribute_help_text_attribute_name[disabled]')
         editor.set_markdown(' ')
         click_button 'Save'
