@@ -56,8 +56,9 @@ describe 'LDAP group sync administration spec', type: :feature, js: true do
 
       visit ldap_groups_synchronized_groups_path
       expect_angular_frontend_initialized
-
       find('.buttons a', text: 'Delete').click
+
+      FinickyTest.wait_for_frontend_binding
       find('.danger-zone--verification input').set 'cn=foo,ou=groups,dc=example,dc=com'
 
       FinickyTest.wait_for_frontend_binding
