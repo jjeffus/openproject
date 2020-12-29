@@ -5,9 +5,7 @@ on:
 jobs:
   units:
     name: Units
-    # if: github.repository == 'opf/openproject'
-    # skip for now, as they're green
-    if: github.repository == 'skip'
+    if: github.repository == 'opf/openproject'
     runs-on: [self-hosted,public]
     timeout-minutes: 30
     steps:
@@ -30,7 +28,7 @@ jobs:
       if: ${{ always() }}
       run: docker-compose down --remove-orphans -t 10
   features:
-    # needs: units
+    needs: units
     name: Features
     if: github.repository == 'opf/openproject'
     runs-on: [self-hosted,public]
